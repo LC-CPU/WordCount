@@ -6,25 +6,17 @@
 
 void fun1()
 {
-	char buf[MAX_NUM];
 	FILE* fp;
-	int len, total = 0;
+	int total = 0;
 	if ((fp = fopen("test.txt", "r")) == NULL) {
 		perror("the file fail to read");
 		getchar();
 		exit(1);
 	}
-	while (!feof(fp) && !ferror(fp))
+	while (getc(fp)!=EOF)
 	{
-		fgets(buf, MAX_NUM, fp);
-		len = strlen(buf);
-		for (int i = 0; i < len; i++)
-		{
-			if (buf[i] == ' ' || buf[i] == '	' || buf[i] == '\n')
-			{
+		
 				total++;
-			}
-		}
 	}
 	printf("字符数：%d", total);
 	fclose(fp);
@@ -45,7 +37,7 @@ void fun2()
 		len = strlen(buf);
 		for (int i = 0; i < len; i++)
 		{
-			if (buf[i] != ' ' && buf[i]!='	'&& buf[i]!='\n')
+			if ((buf[i] == ' ' && buf[i + 1] != ' ') || (buf[i] == ',' && buf[i + 1] != ','))
 			{
 				total++;
 			}
